@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+        }
+        .etiqueta{
+            position: relative;
+            float: left;
+            height: 300px;
+            width: 30%;
+            margin-left: 10px;
+            margin-top: 10px;
+            background-color: silver;
+        }
+
+        .paginacion{
+            position: fixed;
+            bottom: 0px;
+            height: 50px;
+            width: 100%;
+            background-color: gray;
+
+            padding: 5px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div class="etiqueta" v-for="item in aDibujar">{{datos[item].texto}}</div>
+
+        <div class="paginacion">
+            <div class="pagina">    
+                <button v-for="(item, index) in paginas" @click="ir(index)">Página {{index}}</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                datos : [
+                    {texto: "Andrés"},
+                    {texto: "Eduardo"},
+                    {texto: "Santiago"},
+                    {texto: "Isaac"},
+                    {texto: "Sergio"},
+                    {texto: "Samuel"},
+                    {texto: "Isaac"},
+                    {texto: "Sergio"},
+                    {texto: "Samuel"},
+                    {texto: "Isaac"},
+                    {texto: "Sergio"},
+                    {texto: "Samuel"},
+                    {texto: "Samuel"},
+                ],
+                paginas: [],
+                n : 0,
+                aDibujar:[]
+            },
+            methods: {
+                ir: function(index){
+                    console.log("Los id por página son:");
+                    console.log(this.paginas[index]);
+                    this.aDibujar = this.paginas[index];
+                }
+            },
+            created(){
+                var nroRegistros = this.datos.length;
+                var rpp = 3;
+                var paginas = nroRegistros / rpp;
+                
+
+                /*   CREO LAS PÁGINAS EN UN ARREGLO   */
+                for(let x = 0; x < paginas; x++)
+                {
+                    this.paginas.push(
+                        []
+                    );
+                }
+
+                /*   AGREGO LOS ELEMENTOS POR PÁGINA   */
+                var n = 0;
+                for(let x = 0; x < nroRegistros; x++)
+                {
+                    this.paginas[n].push(x)
+                    if(this.paginas[n].length == 3)
+                        n++;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
