@@ -36,7 +36,7 @@
 
         <div class="paginacion">
             <div class="pagina">    
-                <button v-for="(item, index) in paginas" @click="ir(index)">Página {{index}}</button>
+                <button :id="index" v-for="(item, index) in paginas" @click="ir(index)">Página {{index}}</button>
             </div>
         </div>
 
@@ -55,11 +55,6 @@
                     {texto: "Samuel"},
                     {texto: "Isaac"},
                     {texto: "Sergio"},
-                    {texto: "Samuel"},
-                    {texto: "Isaac"},
-                    {texto: "Sergio"},
-                    {texto: "Samuel"},
-                    {texto: "Samuel"},
                 ],
                 paginas: [],
                 n : 0,
@@ -94,6 +89,9 @@
                     if(this.paginas[n].length == 3)
                         n++;
                 }
+            },
+            mounted(){
+                document.getElementById("0").click();
             }
         });
     </script>
